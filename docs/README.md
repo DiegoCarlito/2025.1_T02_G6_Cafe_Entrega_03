@@ -1,41 +1,47 @@
-# RepositorioTemplate
-Esse repositório é para ser utilizado pelos grupos como um template inicial.
-As seções do Template NÃO DEVEM SER OMITIDAS, sendo TODAS RELEVANTES.
-Demais diretrizes constam no Moodle.
-
-**!! Atenção: Renomeie o seu repositório para (Ano.Semestre)(Turma)_(Grupo)_(NomeDoProjeto)_(Entrega_03)*. !!** 
-
-**!! *Não coloque os nomes dos alunos no título do repositório*. !!**
-
-**!! *Exemplo de título correto: 2025.1(T01)_G1_Embarcado_Entrega_03*. !!** 
- 
- (Apague esses comentários)
-
-# Nome do Projeto
+# Coffee Atlas
 
 **Código da Disciplina**: FGA0208<br>
-**Número do Grupo**: XX<br>
+**Número do Grupo**: 06<br>
 **Entrega**: 03<br>
 
 ## Alunos
+
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 22/1007690  |  [Diego Carlito Rodrigues de Souza](https://github.com/DiegoCarlito) |
+| 21/1030747  |  [Filipe Carvalho da Silva](https://github.com/Filipe-002) |
+| 20/2045482  |  [Genilson Silva de Araújo Júnior](https://github.com/GenilsonJrs) |
+| 21/1031708  |  [Geovane Alessandro dos Santos Freitas](https://github.com/GeovaneSFT) |
+| 20/2016364  |  [Guilherme Coelho Mendonça](https://github.com/Guilermanoo) |
+| 21/1063111  |  [Gustavo Alves de Souza](https://github.com/gustaallves) |
+| 22/1022014  |  [João Vitor Lopes Ribeiro](https://github.com/Joa0V) |
+| 22/1008300  |  [Marcos Antonio Teles de Castilhos](https://github.com/Marcosatc147) |
+| 21/1062802  |  [Nicollas Gabriel Oliveira Sousa](https://github.com/Nicollaxs) |
+| 20/0026151  |  [Pedro Henrique F. Nunes](https://github.com/PedroHhenriq) |
+| 21/1031486  |  [Samuel Ribeiro Da Costa](https://github.com/Samuelricosta) |
 
 ## Sobre 
-Contextualize, usando referências, links, e outros materiais como fontes.
 
-## Screenshots da Terceira Entrega
-Adicione 2 ou mais screenshots em termos de artefatos realizados na entrega.
+Coffee Atlas é uma plataforma de fórum online voltada à comunidade apaixonada por café, desenvolvida para facilitar a troca estruturada de informações e experiências. O sistema permite a publicação e categorização de conteúdos relacionados à torrefação, moagem, métodos de preparo e novidades do setor cafeeiro. Suporta funcionalidades como gerenciamento de usuários, controle de permissões, indexação de tópicos por relevância e busca textual avançada, proporcionando uma experiência rica e escalável para seus usuários.
 
 ## Há algo a ser executado?
 
 ( ) SIM
 
-( ) NÃO
+(✓) NÃO
 
-Se SIM, insira um manual (ou um script) para auxiliar ainda mais os interessados na execução.
+## Informações Complementares
 
-## Informações Complementares 
 Quaisquer outras informações adicionais podem ser descritas nessa seção.
+
+## Histórico de Versão
+
+| Versão | Data       | Alteração              | Responsável     | Revisores          | Data de revisão |
+|--------|------------|------------------------|------------------|-------------------|------------------|
+| `1.0`  | 18/05/2025 | Versão inicial do artefato  | [Diego Carlito](https://github.com/DiegoCarlito) |  |  |
+
+## Controle de Revisão
+
+| Revisor(es)      | O que foi realizado                                      |
+|------------------|----------------------------------------------------------|
+|  |  |
