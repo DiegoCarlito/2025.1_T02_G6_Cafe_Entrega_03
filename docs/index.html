@@ -1,23 +1,351 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>☕ Coffee Atlas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Documentação temática sobre café com suporte a temas claro e escuro" />
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
+
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coffee Atlas</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@600&display=swap');
+    
+    :root {
+      /* Tema claro - Café da Manhã */
+      --bg-light: #f9f3eb;
+      --text-light: #3c2a21;
+      --accent-light-primary: #a66832;
+      --accent-light-secondary: #d4a574;
+      --subtle-light: #e8d9c5;
+      --border-light: #d3b895;
+      
+      /* Tema escuro - Café Noturno */
+      --bg-dark: #1a1207;
+      --text-dark: #f3e9d9;
+      --accent-dark-primary: #c9914b;
+      --accent-dark-secondary: #8a5d3b;
+      --subtle-dark: #2d2319;
+      --border-dark: #43341f;
+    }
+    
+    body {
+      font-family: 'Merriweather', serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.5s, color 0.5s;
+      min-height: 100vh;
+    }
+    
+  .theme-dark strong {
+      color: #ffd89b;
+      font-weight: bold;
+    }
+
+    .theme-dark span {
+      color: #f0e1c0;
+    }
+
+    .theme-light strong {
+      color: #5e4020;
+    }
+
+    .theme-light span {
+      color: #6d4c41;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5em 0;
+      font-size: 0.95rem;
+      overflow: hidden;
+      table-layout: auto;
+    }
+
+    thead {
+      font-weight: bold;
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    .theme-light table {
+      background-color: var(--bg-light);
+      color: #3e2c23;
+    }
+
+    .theme-light thead {
+      background-color: #e7d7c2;
+    }
+
+    .theme-light tr:nth-child(even) {
+      background-color: var(--subtle-light);
+    }
+
+    .theme-light tr:hover {
+      background-color: #f1e5d4;
+    }
+
+    .theme-dark table {
+      background-color: var(--bg-dark);
+      color: #f5f2ee;
+    }
+
+    .theme-dark thead {
+      background-color: #3a261a;
+      color: #ffd89b;
+    }
+
+    .theme-dark tr:nth-child(even) {
+      background-color: #322117;
+    }
+
+    .theme-dark tr:hover {
+      background-color: #4a2f20;
+    }
+
+    .theme-dark th, .theme-dark td {
+      border-bottom: 1px solid #503728;
+    }
+
+    .theme-light th, .theme-light td {
+      border-bottom: 1px solid #ddd3c1;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .theme-light {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+    
+    .theme-dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    .theme-light header {
+      border-bottom: 3px solid var(--border-light);
+    }
+
+    .theme-dark header {
+      border-bottom: 3px solid var(--border-dark);
+    }
+
+    .sidebar {
+      color: inherit !important;
+      border-right: 1px solid #444;
+      width: 385px;
+      transition: width 0.3s ease;
+      overflow-x: hidden;
+    }
+
+    .theme-light .sidebar {
+      background-color: var(--subtle-light);
+      border-right: 1px solid var(--border-light);
+    }
+
+    .theme-dark .sidebar {
+      background-color: var(--subtle-dark);
+      border-right: 1px solid var(--border-dark);
+    }
+
+    .sidebar .app-name,
+    .sidebar-nav,
+    .sidebar-nav ul li a {
+      color: inherit !important;
+      background-color: inherit !important;
+    }
+
+    .sidebar-nav ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar img {
+      display: block;
+      margin: 1em auto;
+      width: 200px;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-toggle {
+      width: 384px;
+    }
+
+    body.close .sidebar {
+      width: 0 !important;
+      overflow: hidden;
+    }
+
+    .sidebar-toggle-button span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      margin: 5px auto;
+      transition: background 0.3s;
+      background-color: var(--text-dark);
+    }
+
+    a {
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .theme-light a {
+      color: var(--accent-light-primary);
+    }
+
+    .theme-light a:hover {
+      color: var(--accent-light-secondary);
+      text-decoration: underline;
+    }
+
+    .theme-dark a {
+      color: var(--accent-dark-primary);
+    }
+
+    .theme-dark a:hover {
+      color: var(--accent-dark-secondary);
+      text-decoration: underline;
+    }
+
+    button {
+      cursor: pointer;
+      font-family: 'Merriweather', serif;
+      transition: all 0.3s;
+    }
+
+    .theme-light button {
+      background-color: var(--accent-light-primary);
+      color: white;
+      border: 1px solid var(--accent-light-primary);
+    }
+
+    .theme-light button:hover {
+      background-color: var(--accent-light-secondary);
+      border-color: var(--accent-light-secondary);
+    }
+
+    .theme-dark button {
+      background-color: var(--accent-dark-primary);
+      color: var(--text-dark);
+      border: 1px solid var(--accent-dark-primary);
+    }
+
+    .theme-dark button:hover {
+      background-color: var(--accent-dark-secondary);
+      border-color: var(--accent-dark-secondary);
+    }
+
+    #theme-toggle {
+      position: fixed;
+      top: 15px;
+      right: 100px;
+      z-index: 1000;
+      background-color: transparent;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-light #theme-toggle {
+      color: var(--text-light);
+      border: 2px solid var(--border-light);
+    }
+
+    .theme-dark #theme-toggle {
+      color: var(--text-dark);
+      border: 2px solid var(--border-dark);
+    }
+
+    .card {
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: all 0.3s;
+    }
+    
+    .theme-light .card {
+      background-color: white;
+      box-shadow: 0 3px 10px rgba(156, 116, 86, 0.1);
+      border: 1px solid var(--border-light);
+    }
+
+    .theme-dark .card {
+      background-color: var(--subtle-dark);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-dark);
+    }
+
+    .content {
+      margin-left: 80px;
+      padding: 20px;
+    }
+  </style>
 </head>
+
 <body>
+  <button id="theme-toggle">🌙 Modo Escuro</button>
   <div id="app"></div>
+
   <script>
     window.$docsify = {
+      name: 'Coffee Atlas',
+      logo: 'assets/logo.jpeg',
+      repo: 'https://github.com/UnBArqDsw2025-1-Turma02/2025.1_T02_G6_Cafe_Entrega_03',
       loadSidebar: true,
-      name: 'Repositorio Template',
-      repo: 'https://github.com/UnBArqDsw2025-1-Turma01/RepositorioTemplateEntrega3'
+      subMaxLevel: 2
+    };
+
+    function applyTheme(theme) {
+      const body = document.body;
+      body.classList.remove('theme-dark', 'theme-light');
+      body.classList.add(`theme-${theme}`);
+      document.getElementById('theme-toggle').textContent = theme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Escuro';
+      localStorage.setItem('theme', theme);
     }
+
+    function toggleTheme() {
+      const body = document.body;
+      const isDark = body.classList.contains('theme-dark');
+      applyTheme(isDark ? 'light' : 'dark');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      applyTheme(savedTheme);
+
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    });
   </script>
-  <!-- Docsify v4 -->
+
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
 </body>
 </html>
