@@ -6,26 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Documentação temática sobre café com suporte a temas claro e escuro" />
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" />
-
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coffee Atlas</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Playfair+Display:wght@600&display=swap');
-    
+
     :root {
-      /* Tema claro - Café da Manhã */
+      /* Paleta - Tema Claro */
       --bg-light: #f9f3eb;
       --text-light: #3c2a21;
       --accent-light-primary: #a66832;
       --accent-light-secondary: #d4a574;
       --subtle-light: #e8d9c5;
       --border-light: #d3b895;
-      
-      /* Tema escuro - Café Noturno */
+
+      /* Paleta - Tema Escuro */
       --bg-dark: #1a1207;
       --text-dark: #f3e9d9;
       --accent-dark-primary: #c9914b;
@@ -33,41 +26,26 @@
       --subtle-dark: #2d2319;
       --border-dark: #43341f;
     }
-    
+
+    /* ---------- Base ---------- */
     body {
       font-family: 'Merriweather', serif;
-      margin: 0;
-      padding: 0;
       transition: background-color 0.5s, color 0.5s;
-      min-height: 100vh;
-    }
-    
-  .theme-dark strong {
-      color: #ffd89b;
-      font-weight: bold;
     }
 
-    .theme-dark span {
-      color: #f0e1c0;
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
     }
 
-    .theme-light strong {
-      color: #5e4020;
+    a {
+      text-decoration: none;
+      transition: color 0.3s;
     }
 
-    .theme-light span {
-      color: #6d4c41;
-    }
-
-    table {
-      display: block;
-      overflow-x: auto;
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1.5em 0;
-      font-size: 0.95rem;
-      overflow: hidden;
-      table-layout: auto;
+    button {
+      cursor: pointer;
+      font-family: 'Merriweather', serif;
+      transition: all 0.3s;
     }
 
     thead {
@@ -77,6 +55,20 @@
     th, td {
       padding: 12px 16px;
       text-align: left;
+    }
+
+    /* ---------- Tema Claro ---------- */
+    .theme-light {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    .theme-light strong {
+      color: #5e4020;
+    }
+
+    .theme-light span {
+      color: #6d4c41;
     }
 
     .theme-light table {
@@ -94,6 +86,56 @@
 
     .theme-light tr:hover {
       background-color: #f1e5d4;
+    }
+
+    .theme-light th, .theme-light td {
+      border-bottom: 1px solid #ddd3c1;
+    }
+
+    .theme-light a {
+      color: var(--accent-light-primary);
+    }
+
+    .theme-light a:hover {
+      color: var(--accent-light-secondary);
+      text-decoration: underline;
+    }
+
+    .theme-light button {
+      background-color: var(--subtle-light) !important;
+      color: white;
+    }
+
+    .theme-light header {
+      border-bottom: 3px solid var(--border-light);
+    }
+
+    .theme-light .sidebar {
+      background-color: var(--subtle-light);
+      border-right: 1px solid var(--border-light);
+    }
+
+    .theme-light #theme-toggle {
+      color: var(--text-light);
+      border: 2px solid var(--border-light);
+    }
+
+    .theme-light .sidebar-toggle-button span {
+      background-color: var(--text-light);
+    }
+
+    /* ---------- Tema Escuro ---------- */
+    .theme-dark {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .theme-dark strong {
+      color: #ffd89b;
+    }
+
+    .theme-dark span {
+      color: #f0e1c0;
     }
 
     .theme-dark table {
@@ -118,61 +160,47 @@
       border-bottom: 1px solid #503728;
     }
 
-    .theme-light th, .theme-light td {
-      border-bottom: 1px solid #ddd3c1;
+    .theme-dark a {
+      color: var(--accent-dark-primary);
     }
 
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
+    .theme-dark a:hover {
+      color: var(--accent-dark-secondary);
+      text-decoration: underline;
     }
-    
-    .theme-light {
-      background-color: var(--bg-light);
-      color: var(--text-light);
-    }
-    
-    .theme-dark {
-      background-color: var(--bg-dark);
+
+    .theme-dark button {
+      background-color: var(--subtle-dark) !important;
       color: var(--text-dark);
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    header {
-      text-align: center;
-      padding: 30px 0;
-    }
-
-    .theme-light header {
-      border-bottom: 3px solid var(--border-light);
     }
 
     .theme-dark header {
       border-bottom: 3px solid var(--border-dark);
     }
 
-    .sidebar {
-      color: inherit !important;
-      border-right: 1px solid #444;
-      width: 20.2% !important;
-      position: absolute;
-      height: 100%;
-      transition: width 0.3s ease;
-      overflow-x: hidden;
-    }
-
-    .theme-light .sidebar {
-      background-color: var(--subtle-light);
-      border-right: 1px solid var(--border-light);
-    }
-
     .theme-dark .sidebar {
       background-color: var(--subtle-dark);
       border-right: 1px solid var(--border-dark);
+    }
+
+    .theme-dark #theme-toggle {
+      color: var(--text-dark);
+      border: 2px solid var(--border-dark);
+    }
+
+    .theme-dark .sidebar-toggle-button span {
+      background-color: var(--text-dark);
+    }
+
+    /* ---------- Sidebar ---------- */
+    .sidebar {
+      color: inherit !important;
+      overflow-x: hidden;
+      transition: width 0.3s ease;
+    }
+
+    .sidebar-toggle-button span {
+      background-color: var(--text-dark);
     }
 
     .sidebar .app-name,
@@ -189,128 +217,41 @@
     .sidebar img {
       display: block;
       margin: 1em auto;
-      max-width: 100%;
+      width: 200px;
       height: 300px;
       object-fit: cover;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
-    .sidebar-toggle {
-      width: 20.2%;
+    /* ---------- Cabeçalho ---------- */
+    header {
+      text-align: center;
+      padding: 30px 0;
     }
 
-    body.close .sidebar {
-      width: 0 !important;
-      overflow: hidden;
-    }
-
-    .sidebar-toggle-button span {
-      display: block;
-      width: 25px;
-      height: 3px;
-      margin: 5px auto;
-      transition: background 0.3s;
-      background-color: var(--text-dark);
-    }
-
-    a {
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-
-    .theme-light a {
-      color: var(--accent-light-primary);
-    }
-
-    .theme-light a:hover {
-      color: var(--accent-light-secondary);
-      text-decoration: underline;
-    }
-
-    .theme-dark a {
-      color: var(--accent-dark-primary);
-    }
-
-    .theme-dark a:hover {
-      color: var(--accent-dark-secondary);
-      text-decoration: underline;
-    }
-
-    button {
-      cursor: pointer;
-      font-family: 'Merriweather', serif;
-      transition: all 0.3s;
-    }
-
-    .theme-light button {
-      background-color: var(--accent-light-primary);
-      color: white;
-      border: 1px solid var(--accent-light-primary);
-    }
-
-    .theme-light button:hover {
-      background-color: var(--accent-light-secondary);
-      border-color: var(--accent-light-secondary);
-    }
-
-    .theme-dark button {
-      background-color: var(--accent-dark-primary);
-      color: var(--text-dark);
-      border: 1px solid var(--accent-dark-primary);
-    }
-
-    .theme-dark button:hover {
-      background-color: var(--accent-dark-secondary);
-      border-color: var(--accent-dark-secondary);
-    }
-
+    /* ---------- Botão de Toggle ---------- */
     #theme-toggle {
       position: fixed;
-      top: 15px;
-      right: 100px;
+      bottom: 20px;
+      right: 20px;
       z-index: 1000;
-      background-color: transparent;
-      padding: 8px 16px;
-      cursor: pointer;
+      padding: 8px 14px;
       font-size: 14px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       gap: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
-    .theme-light #theme-toggle {
-      color: var(--text-light);
-      border: 2px solid var(--border-light);
-    }
-
-    .theme-dark #theme-toggle {
-      color: var(--text-dark);
-      border: 2px solid var(--border-dark);
-    }
-
-    .card {
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 20px;
-      transition: all 0.3s;
-    }
-    
-    .theme-light .card {
-      background-color: white;
-      box-shadow: 0 3px 10px rgba(156, 116, 86, 0.1);
-      border: 1px solid var(--border-light);
-    }
-
-    .theme-dark .card {
-      background-color: var(--subtle-dark);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-      border: 1px solid var(--border-dark);
-    }
-
-    .content {
-      margin-left: 0;
-      padding: 10px;
+    @media (max-width: 600px) {
+      #theme-toggle {
+        bottom: 10px;
+        right: 10px;
+        font-size: 12px;
+        padding: 6px 10px;
+      }
     }
   </style>
 </head>
@@ -345,7 +286,6 @@
     document.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('theme') || 'light';
       applyTheme(savedTheme);
-
       document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     });
   </script>
