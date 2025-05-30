@@ -1,115 +1,167 @@
-import threading
-from datetime import datetime
+class Usuario:
+    def __init__(self, nome, nome_usuario, senha, permissoes):
+        self.nome = nome
+        self.nome_usuario = nome_usuario
+        self.senha = senha
+        self.permissoes = permissoes
+        self.topicos_seguidos = set()
+        self.usuarios_seguidos = set()
 
-# Logger Singleton
-class Logger:
-    _instance = None
-    _lock = threading.Lock()
+    def seguir_topico(self, topico):
+        self.topicos_seguidos.add(topico)
 
-    def __init__(self):
-        self._log_file = "registro_comunidade_cafe.txt"
-        self._file_lock = threading.Lock()
+    def seguir_usuario(self, outro_usuario):
+        self.usuarios_seguidos.add(outro_usuario)
 
-    @classmethod
-    def get_logger(cls):
-        with cls._lock:
-            if cls._instance is None:
-                cls._instance = Logger()
-            return cls._instance
+    def curtir_resposta(self, resposta):
+        resposta.curtir()
 
-    def _obter_timestamp(self):
-        agora = datetime.now()
-        return agora.strftime("%d/%m/%Y %H:%M:%S")
+    def denunciar_resposta(self, resposta):
+        resposta.denunciar()
 
-    def _escrever_log(self, mensagem):
-        with self._file_lock:
-            try:
-                with open(self._log_file, "a", encoding="utf-8") as f:
-                    f.write(f"{self._obter_timestamp()} - {mensagem}\n")
-            except Exception as e:
-                print(f"Erro ao escrever no log: {e}")
+    def __str__(self):
+        return f'@{self.nome_usuario}'
 
-    def registrar_sucesso(self, mensagem):
-        self._escrever_log(f"SUCESSO - {mensagem}")
+class Resposta:
+    def __init__(self, conteudo, autor):
+        self.conteudo = conteudo
+        self.autor = autor
+        self.quantidade_likes = 0
 
-    def registrar_erro(self, mensagem):
-        self._escrever_log(f"ERRO - {mensagem}")
+    def curtir(self):
+        self.quantidade_likes += 1
 
-    def registrar_aviso(self, mensagem):
-        self._escrever_log(f"AVISO - {mensagem}")
+    def denunciar(self):
+        print(f"Resposta de {self.autor} denunciada.")
 
-    def obter_log(self):
-        with self._file_lock:
-            try:
-                with open(self._log_file, "r", encoding="utf-8") as f:
-                    return f.read()
-            except FileNotFoundError:
-                return "Nenhum registro encontrado na comunidade ainda."
+    def __str__(self):
+        return f'Resposta({self.conteudo[:30]}...)'
 
-# ForumManager Singleton
+class Postagem:
+    def __init__(self, autor, texto):
+        self.autor = autor
+        self.texto = texto
+        self.respostas = []
+
+    def adicionar_resposta(self, resposta):
+        self.respostas.append(resposta)
+
+    def editar_postagem(self, novo_texto):
+        self.texto = novo_texto
+
+    def __str__(self):
+        return f'Postagem de {self.autor}: {self.texto[:40]}...'
+
+class Topico:
+    def __init__(self, titulo, autor, tipo, descricao):
+        self.titulo = titulo
+        self.autor = autor
+        self.tipo = tipo
+        self.descricao = descricao
+        self.postagens = []
+
+    def adicionar_postagem(self, postagem):
+        self.postagens.append(postagem)
+
+    def __str__(self):
+        return f'Tópico: {self.titulo} ({self.tipo})'
+
 class ComunidadeCafeManager:
-    _instance = None
-    _lock = threading.Lock()
+    _instancia = None
 
     def __new__(cls):
-        with cls._lock:
-            if cls._instance is None:
-                cls._instance = super().__new__(cls)
-                cls._instance._membros = set()
-                cls._instance._discussoes = {}
-                cls._instance._logger = Logger.get_logger()
-            return cls._instance
+        if cls._instancia is None:
+            cls._instancia = super(ComunidadeCafeManager, cls).__new__(cls)
+            cls._instancia._inicializar()
+        return cls._instancia
 
-    def adicionar_membro(self, nome):
-        if nome in self._membros:
-            self._logger.registrar_aviso(f"Membro '{nome}' já está na comunidade.")
-            return f"O membro '{nome}' já está na comunidade."
-        self._membros.add(nome)
-        self._logger.registrar_sucesso(f"Membro '{nome}' entrou na comunidade do café.")
-        return f"Bem-vindo à comunidade do café, {nome}!"
+    def _inicializar(self):
+        self.usuarios = {}
+        self.topicos = []
 
-    def iniciar_discussao(self, titulo, autor):
-        if autor not in self._membros:
-            self._logger.registrar_erro(f"Tentativa de iniciar discussão por membro não cadastrado: {autor}")
-            return f"Erro: O membro '{autor}' não está cadastrado na comunidade."
-        if titulo in self._discussoes:
-            self._logger.registrar_aviso(f"A discussão '{titulo}' já existe.")
-            return f"A discussão '{titulo}' já foi iniciada."
-        self._discussoes[titulo] = {"autor": autor, "mensagens": []}
-        self._logger.registrar_sucesso(f"Discussão '{titulo}' iniciada por '{autor}'.")
-        return f"Discussão '{titulo}' iniciada com sucesso."
+    def registrar_usuario(self, nome, nome_usuario, senha, permissoes="padrão"):
+        if nome_usuario not in self.usuarios:
+            usuario = Usuario(nome, nome_usuario, senha, permissoes)
+            self.usuarios[nome_usuario] = usuario
+            print(f"Usuário @{nome_usuario} registrado com sucesso.")
+        else:
+            print("Nome de usuário já existe.")
 
-    def adicionar_mensagem(self, titulo_discussao, autor, mensagem):
-        if autor not in self._membros:
-            self._logger.registrar_erro(f"Membro não cadastrado '{autor}' tentou enviar mensagem.")
-            return f"Erro: O membro '{autor}' não está na comunidade."
-        if titulo_discussao not in self._discussoes:
-            self._logger.registrar_erro(f"Tentativa de mensagem em discussão inexistente: {titulo_discussao}")
-            return f"Erro: A discussão '{titulo_discussao}' não existe."
-        nova_mensagem = {"autor": autor, "mensagem": mensagem}
-        self._discussoes[titulo_discussao]["mensagens"].append(nova_mensagem)
-        self._logger.registrar_sucesso(f"Mensagem adicionada à discussão '{titulo_discussao}' por '{autor}'.")
-        return f"Mensagem adicionada com sucesso à discussão '{titulo_discussao}'."
+    def criar_topico(self, titulo, nome_usuario, tipo, descricao):
+        if nome_usuario not in self.usuarios:
+            print("Usuário não encontrado.")
+            return
 
-    def obter_log(self):
-        return self._logger.obter_log()
+        autor = self.usuarios[nome_usuario]
+        topico = Topico(titulo, autor, tipo, descricao)
+        self.topicos.append(topico)
+        print(f"Tópico '{titulo}' criado por @{nome_usuario}.")
+        return topico
 
-# Exemplo de uso
-if __name__ == "__main__":
-    comunidade = ComunidadeCafeManager()
+    def adicionar_postagem(self, titulo_topico, nome_usuario, texto):
+        topico = next((t for t in self.topicos if t.titulo == titulo_topico), None)
+        if not topico:
+            print("Tópico não encontrado.")
+            return
 
-    print(comunidade.adicionar_membro("Ana"))
-    print(comunidade.adicionar_membro("João"))
-    print(comunidade.adicionar_membro("Ana"))  # Já está na comunidade
+        if nome_usuario not in self.usuarios:
+            print("Usuário não encontrado.")
+            return
 
-    print(comunidade.iniciar_discussao("Melhores métodos de preparo", "Ana"))
-    print(comunidade.iniciar_discussao("Melhores métodos de preparo", "Ana"))  # Já existe
-    print(comunidade.iniciar_discussao("História do café", "Carlos"))  # Membro não existe
+        autor = self.usuarios[nome_usuario]
+        postagem = Postagem(autor, texto)
+        topico.adicionar_postagem(postagem)
+        print(f"Postagem adicionada ao tópico '{titulo_topico}' por @{nome_usuario}.")
+        return postagem
 
-    print(comunidade.adicionar_mensagem("Melhores métodos de preparo", "Ana", "Eu adoro o método Hario V60!"))
-    print(comunidade.adicionar_mensagem("Melhores métodos de preparo", "João", "Prefiro a prensa francesa."))
-    print(comunidade.adicionar_mensagem("Melhores métodos de preparo", "Carlos", "Alguém já usou aeropress?"))  # Membro não existe
-    print(comunidade.adicionar_mensagem("Cafés Africanos", "Ana", "Quais vocês recomendam?"))  # Discussão não existe
+    def responder_postagem(self, titulo_topico, index_postagem, nome_usuario, conteudo_resposta):
+        topico = next((t for t in self.topicos if t.titulo == titulo_topico), None)
+        if not topico:
+            print("Tópico não encontrado.")
+            return
 
-    print("\nRegistro de atividades da Comunidade do Café:")
-    print(comunidade.obter_log())
+        if nome_usuario not in self.usuarios:
+            print("Usuário não encontrado.")
+            return
+
+        try:
+            postagem = topico.postagens[index_postagem]
+        except IndexError:
+            print("Postagem não encontrada.")
+            return
+
+        autor = self.usuarios[nome_usuario]
+        resposta = Resposta(conteudo_resposta, autor)
+        postagem.adicionar_resposta(resposta)
+        print(f"Resposta adicionada por @{nome_usuario} à postagem #{index_postagem} em '{titulo_topico}'.")
+
+    def exibir_topicos(self):
+        print("=== Tópicos ===")
+        for t in self.topicos:
+            print(t)
+
+    def exibir_postagens_do_topico(self, titulo_topico):
+        topico = next((t for t in self.topicos if t.titulo == titulo_topico), None)
+        if not topico:
+            print("Tópico não encontrado.")
+            return
+
+        print(f"--- Postagens em '{titulo_topico}' ---")
+        for i, p in enumerate(topico.postagens):
+            print(f"[{i}] {p}")
+
+    def exibir_respostas_da_postagem(self, titulo_topico, index_postagem):
+        topico = next((t for t in self.topicos if t.titulo == titulo_topico), None)
+        if not topico:
+            print("Tópico não encontrado.")
+            return
+
+        try:
+            postagem = topico.postagens[index_postagem]
+        except IndexError:
+            print("Postagem não encontrada.")
+            return
+
+        print(f"--- Respostas da postagem #{index_postagem} em '{titulo_topico}' ---")
+        for r in postagem.respostas:
+            print(f"- {r}")
