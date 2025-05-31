@@ -83,3 +83,5 @@ class TopicoAdapter(TopicoAdapterInterface):
 
     def _criar_evento(self):
         return f"Evento criado: {self.evento.tipo} em {self.evento.local} por {self.evento.organizador}"
+    
+    

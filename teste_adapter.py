@@ -72,3 +72,5 @@ if __name__ == "__main__":
 
     # Exibindo todos os tópicos criados
     manager.exibir_topicos()
+
+    
