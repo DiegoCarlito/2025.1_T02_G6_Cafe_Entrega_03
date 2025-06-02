@@ -61,8 +61,152 @@ Esta modelagem exemplifica os princípios fundamentais do padrão Command: encap
 <font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a> e <a href="https://github.com/PedroHhenriq">Pedro Henrique</a>, 2025.</p></font>
 </center>
 
+## Código
+
+A implementação prática do padrão Command no sistema de moderação desenvolvido demonstra a aplicação efetiva dos conceitos teóricos apresentados. O código Python desenvolvido estabelece uma arquitetura clara e extensível que aborda tanto operações reversíveis quanto irreversíveis, característica essencial para sistemas de moderação robustos.
+
+### Definição das Interfaces
+
+A estrutura inicial estabelece duas interfaces distintas que separam comandos reversíveis dos irreversíveis:
+
+```python
+class ComandoModeracao:
+    def executar(self) -> None:
+        raise NotImplementedError
+    def desfazer(self) -> None:
+        raise NotImplementedError
+
+class ComandoModeracaoIrreversivel:
+    def executar(self) -> None:
+        raise NotImplementedError
+    # Sem método desfazer, pois é irreversível
+```
+
+<center>
+<font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a> e <a href="https://github.com/PedroHhenriq">Pedro Henrique</a>, 2025.</p></font>
+</center>
+
+Esta separação conceitual permite que o sistema trate adequadamente operações que podem ser revertidas (como ocultar postagens) e aquelas que são permanentes (como exclusão definitiva), garantindo integridade operacional e clareza na interface do usuário.
+
+### Implementação do Receiver
+
+O componente Moderador atua como receiver, encapsulando toda a lógica específica de moderação:
+
+```python
+class Moderador:
+    def ocultar_postagem(self, postagem: str) -> None:
+        print(f"Postagem '{postagem}' ocultada.")
+    
+    def excluir_postagem_definitivamente(self, postagem: str) -> None:
+        print(f"Postagem '{postagem}' excluída definitivamente.")
+    
+    def bloquear_usuario(self, usuario: str) -> None:
+        print(f"Usuário '{usuario}' bloqueado.")
+    
+    def desbloquear_usuario(self, usuario: str) -> None:
+        print(f"Usuário '{usuario}' desbloqueado.")
+```
+
+<center>
+<font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a> e <a href="https://github.com/PedroHhenriq">Pedro Henrique</a>, 2025.</p></font>
+</center>
+
+Esta implementação concentra toda a lógica de negócio relacionada à moderação em um único componente, facilitando manutenção e garantindo consistência operacional.
+
+### Comandos Concretos Reversíveis
+
+Os comandos reversíveis implementam tanto a operação principal quanto seu desfazer correspondente:
+
+```python
+class OcultarPostagemCommand(ComandoModeracao):
+    def __init__(self, moderador: Moderador, postagem: str):
+        self.moderador = moderador
+        self.postagem = postagem
+    
+    def executar(self) -> None:
+        self.moderador.ocultar_postagem(self.postagem)
+    
+    def desfazer(self) -> None:
+        print(f"Desfazer ocultação: Postagem '{self.postagem}' restaurada (simulado).")
+
+class BloquearUsuarioCommand(ComandoModeracao):
+    def __init__(self, moderador: Moderador, usuario: str):
+        self.moderador = moderador
+        self.usuario = usuario
+    
+    def executar(self) -> None:
+        self.moderador.bloquear_usuario(self.usuario)
+    
+    def desfazer(self) -> None:
+        self.moderador.desbloquear_usuario(self.usuario)
+```
+
+<center>
+<font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a> e <a href="https://github.com/PedroHhenriq">Pedro Henrique</a>, 2025.</p></font>
+</center>
+
+Cada comando concreto encapsula completamente sua operação específica, mantendo referências aos dados necessários tanto para execução quanto para reversão.
+
+### Comandos Irreversíveis
+
+Para operações permanentes, a implementação segue uma abordagem mais simples, sem capacidade de desfazer:
+
+```python
+class ExcluirPostagemCommand(ComandoModeracaoIrreversivel):
+    def __init__(self, moderador: Moderador, postagem: str):
+        self.moderador = moderador
+        self.postagem = postagem
+
+    def executar(self) -> None:
+        self.moderador.excluir_postagem_definitivamente(self.postagem)
+```
+
+<center>
+<font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a> e <a href="https://github.com/PedroHhenriq">Pedro Henrique</a>, 2025.</p></font>
+</center>
+
+### Controlador de Moderação (Invoker)
+
+O componente mais sofisticado da implementação é o ControladorModeracao, que gerencia o histórico de comandos e implementa funcionalidades de desfazer/refazer:
+
+```python
+class ControladorModeracao:
+    def __init__(self):
+        self.historico: List[ComandoModeracao] = []
+        self.desfeitos: List[ComandoModeracao] = []
+    
+    def executar_comando(self, comando: Union[ComandoModeracao, ComandoModeracaoIrreversivel]) -> None:
+        comando.executar()
+        if isinstance(comando, ComandoModeracao):
+            self.historico.append(comando)
+            self.desfeitos.clear()
+    
+    def desfazer(self) -> None:
+        if not self.historico:
+            print("Nada para desfazer.")
+            return
+        comando = self.historico.pop()
+        comando.desfazer()
+        self.desfeitos.append(comando)
+    
+    def refazer(self) -> None:
+        if not self.desfeitos:
+            print("Nada para refazer.")
+            return
+        comando = self.desfeitos.pop()
+        comando.executar()
+        self.historico.append(comando)
+```
+
+<center>
+<font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a> e <a href="https://github.com/PedroHhenriq">Pedro Henrique</a>, 2025.</p></font>
+</center>
+
+Esta implementação demonstra características avançadas do padrão Command, incluindo gerenciamento inteligente de histórico que diferencia comandos reversíveis dos irreversíveis e implementa corretamente a funcionalidade de refazer.
+
 ## Histórico de Versão
 
 | Versão | Data       | Alteração              | Responsável     | Revisor           | Data de revisão |
 |--------|------------|------------------------|------------------|-------------------|------------------|
 | `1.0`  |01/06/2025| Criação do documento com introdução, metodologia e modelagem | [Diego Carlito](https://github.com/DiegoCarlito) e [Pedro Henrique](https://github.com/PedroHhenriq) |  |  |
+| `1.1` |01/06/2025| Adiciona implementação em código python | [Diego Carlito](https://github.com/DiegoCarlito) e [Pedro Henrique](https://github.com/PedroHhenriq) |  |  |
