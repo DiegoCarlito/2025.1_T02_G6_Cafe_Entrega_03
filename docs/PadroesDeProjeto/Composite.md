@@ -170,9 +170,28 @@ class Topico(ForumComponent):
 <font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a>, 2025</p></font>
 </center>
 
+## Conclusão
+
+A implementação do padrão estrutural Composite no sistema de fórum demonstrou ser uma solução elegante e eficiente para gerenciar estruturas hierárquicas complexas. O diagrama de classes e a codificação em Python ilustraram como a interface `ForumComponent` e suas implementações (Postagem como elemento folha e Topico como elemento composto) proporcionam flexibilidade e uniformidade no tratamento de diferentes tipos de conteúdo.
+
+O padrão Composite ofereceu uma abstração poderosa que simplifica significativamente a manipulação de elementos individuais e agrupamentos hierárquicos. A interface comum `ForumComponent` centralizou as operações essenciais, enquanto métodos específicos de composição foram implementados apenas onde necessário, mantendo a coesão do design.
+
+A implementação demonstrou vantagens práticas importantes: operações recursivas como exibição de conteúdo e cálculo de estatísticas tornaram-se naturais e intuitivas; a adição de novos tipos de componentes pode ser realizada sem modificar código existente; e a navegação pela estrutura hierárquica é transparente para o código cliente.
+
+Além disso, o padrão estabeleceu uma base sólida para expansões futuras do sistema, como implementação de funcionalidades de busca, moderação de conteúdo, ou sistemas de notificação que precisem percorrer toda a hierarquia de discussões. A separação clara de responsabilidades entre componentes folha e compostos contribui diretamente para a manutenibilidade e escalabilidade da solução.
+
+Por fim, a aplicação do padrão Composite no contexto de um sistema de fórum não apenas resolveu os desafios imediatos de organização hierárquica, mas também estabeleceu uma arquitetura robusta e extensível para futuras necessidades do sistema.
+
+## Bibliografia
+
+> Refactoring Guru. Composite Design Pattern. Disponível em: [https://refactoring.guru/design-patterns/composite](https://refactoring.guru/design-patterns/composite). Acessado em 01 de junho de 2025.
+
+> Python Software Foundation. ABC — Abstract Base Classes. Disponível em: [https://docs.python.org/3/library/abc.html](https://docs.python.org/3/library/abc.html). Acessado em 01 de junho de 2025.
+
 ## Histórico de Versões
 
 | Versão | Data       | Alteração              | Responsável     | Revisor           | Data de revisão |
 |--------|------------|------------------------|------------------|-------------------|------------------|
 | `1.0`  | 01/06/2025 | Criação do documento com introdução, metodologia e modelagem | [Diego Carlito](https://github.com/DiegoCarlito) e [Filipe Carvalho](https://github.com/Filipe-002) |  |  |
 | `1.1`  | 01/06/2025 | Adição da implementação em Python | [Diego Carlito](https://github.com/DiegoCarlito) |  |  |
+| `1.2`  | 01/06/2025 | Inclusão da conclusão e bibliografia | [Diego Carlito](https://github.com/DiegoCarlito) |  |  |
