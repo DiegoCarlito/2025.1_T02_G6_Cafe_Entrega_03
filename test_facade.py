@@ -69,35 +69,36 @@ class GestaoEstabelecimento:
 
 gestao = GestaoEstabelecimento()
 
-# Cadastrando um lojista
-lojista = Lojista("João")
-gestao.cadastrarLojista(lojista)
+# Cadastrando um barista (lojista)
+barista = Lojista("Ana")
+gestao.cadastrarLojista(barista)
 
-# Criando e adicionando uma loja
-loja = Estabelecimento("Mercado Central", "Centro")
-lojista.criar_loja(loja)
-gestao.adicionarEstabelecimento(loja)
+# Criando e adicionando uma cafeteria
+cafeteria = Estabelecimento("Café Central", "Centro")
+barista.criar_loja(cafeteria)
+gestao.adicionarEstabelecimento(cafeteria)
 
-# Adicionando produtos à loja
-p1 = Produto("Arroz", 20.50, loja)
-p2 = Produto("Feijão", 7.30, loja)
-gestao.cadastrarProduto(p1, loja)
-gestao.cadastrarProduto(p2, loja)
+# Adicionando produtos ao cardápio da cafeteria
+bebida1 = Produto("Cappuccino", 12.00, cafeteria)
+bebida2 = Produto("Latte", 10.50, cafeteria)
+gestao.cadastrarProduto(bebida1, cafeteria)
+gestao.cadastrarProduto(bebida2, cafeteria)
 
-# Adicionando avaliações
-loja.adicionar_avaliacao(4)
-loja.adicionar_avaliacao(5)
-loja.adicionar_avaliacao(3)
+# Adicionando avaliações dos clientes
+cafeteria.adicionar_avaliacao(5)
+cafeteria.adicionar_avaliacao(4)
+cafeteria.adicionar_avaliacao(5)
 
-# Exibindo produtos
-print("Produtos disponíveis:")
-for produto in gestao.exibirProdutos(loja):
+# Exibindo o cardápio
+print("Bebidas disponíveis:")
+for produto in gestao.exibirProdutos(cafeteria):
     print(produto.exibir_resumo())
 
 # Mostrando média de avaliações
-print(f"\nMédia de avaliações da loja '{loja.nome}': {gestao.obterMediaAvaliacoes(loja)}")
+print(f"\nMédia de avaliações da cafeteria '{cafeteria.nome}': {gestao.obterMediaAvaliacoes(cafeteria)}")
 
-# Listando todas as lojas
-print("\nTodas as lojas cadastradas:")
+# Listando todas as cafeterias cadastradas
+print("\nTodas as cafeterias cadastradas:")
 for l in gestao.listarTodasLojas():
     print(f"- {l.nome} ({l.localizacao})")
+
