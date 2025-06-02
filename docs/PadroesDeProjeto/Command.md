@@ -204,9 +204,32 @@ class ControladorModeracao:
 
 Esta implementação demonstra características avançadas do padrão Command, incluindo gerenciamento inteligente de histórico que diferencia comandos reversíveis dos irreversíveis e implementa corretamente a funcionalidade de refazer.
 
+## Conclusão
+
+A implementação do padrão Command no sistema de moderação demonstrou eficácia significativa na resolução de desafios relacionados ao controle de ações moderativas e flexibilidade arquitetural. O encapsulamento de ações de moderação como objetos independentes proporcionou benefícios tangíveis em termos de manutenibilidade, extensibilidade e experiência dos moderadores.
+
+O padrão estabeleceu uma separação clara entre a solicitação de ações de moderação e sua execução, eliminando dependências diretas entre camadas de interface administrativa e lógica de moderação. Esta arquitetura facilitou a implementação de funcionalidades avançadas como histórico de ações e processamento reversível, recursos essenciais para sistemas de moderação robustos.
+
+A flexibilidade proporcionada pelo Command permitiu a adição de novos tipos de ações moderativas sem modificações no código existente, demonstrando a extensibilidade da solução. O mecanismo de desfazimento integrado contribuiu significativamente para a qualidade da experiência dos moderadores, oferecendo confiança e controle sobre ações realizadas.
+
+Adicionalmente, a implementação estabeleceu uma base sólida para futuras expansões do sistema, como implementação de macros de moderação, processamento em lote de ações ou integração com sistemas de auditoria. A separação de responsabilidades entre comandos, controlador e moderador facilita a manutenção e evolução contínua da aplicação.
+
+Por fim, a aplicação do padrão Command no contexto de moderação de conteúdo não apenas atendeu aos requisitos funcionais imediatos, mas também criou uma arquitetura robusta e escalável que suporta o crescimento e a evolução das necessidades do sistema de moderação.
+
+## Bibliografia
+
+> GAMMA, E. et al. Design Patterns. [s.l.] Pearson Education, 1994.
+
+> Refactoring Guru. Command Design Pattern. Disponível em: <https://refactoring.guru/design-patterns/command>. Acessado em 01 de junho de 2025.
+
+> Python Software Foundation. Flask Documentation. Disponível em: <https://flask.palletsprojects.com/>. Acessado em 01 de junho de 2025.
+
+> Lutz, M. (2013). Learning Python: Powerful Object-Oriented Programming. O'Reilly Media.
+
 ## Histórico de Versão
 
 | Versão | Data       | Alteração              | Responsável     | Revisor           | Data de revisão |
 |--------|------------|------------------------|------------------|-------------------|------------------|
 | `1.0`  |01/06/2025| Criação do documento com introdução, metodologia e modelagem | [Diego Carlito](https://github.com/DiegoCarlito) e [Pedro Henrique](https://github.com/PedroHhenriq) |  |  |
 | `1.1` |01/06/2025| Adiciona implementação em código python | [Diego Carlito](https://github.com/DiegoCarlito) e [Pedro Henrique](https://github.com/PedroHhenriq) |  |  |
+| `1.2` |02/06/2025| Inclusão da conclusão e referências bibliográficas | [Diego Carlito](https://github.com/DiegoCarlito) e [Pedro Henrique](https://github.com/PedroHhenriq) |  |  |
