@@ -49,8 +49,130 @@ Os componentes principais da estrutura podem ser interpretados da seguinte forma
 - **Postagem**: Implementa ForumComponent representando elementos terminais (folhas) da hierarquia, sem capacidade de conter outros elementos.
 - **Topico**: Implementa ForumComponent com capacidade de gerenciar filhos, delegando operações recursivamente para seus componentes.
 
+## Código
+
+A implementação do padrão Composite em Python para o sistema de fórum utiliza programação orientada a objetos e conceitos de abstração. As classes principais incluem a interface abstrata ForumComponent, as implementações concretas Postagem e Topico, além de um exemplo de uso demonstrativo.
+
+### Interface ForumComponent
+
+```python
+from abc import ABC, abstractmethod
+
+class ForumComponent(ABC):
+    """
+    Interface abstrata que define operações comuns para 
+    elementos simples e compostos do fórum.
+    """
+    
+    @abstractmethod
+    def exibir(self):
+        """Método abstrato para exibição de conteúdo."""
+        pass
+
+    def add(self, componente: 'ForumComponent'):
+        """Adiciona um componente filho (usado apenas por compostos)."""
+        raise NotImplementedError("Operação não suportada para este tipo de elemento.")
+
+    def remove(self, componente: 'ForumComponent'):
+        """Remove um componente filho (usado apenas por compostos)."""
+        raise NotImplementedError("Operação não suportada para este tipo de elemento.")
+
+    def get_child(self, index: int) -> 'ForumComponent':
+        """Obtém um componente filho pelo índice (usado apenas por compostos)."""
+        raise NotImplementedError("Operação não suportada para este tipo de elemento.")
+```
+
+</center>
+<font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a>, 2025</p></font>
+</center>
+
+### Classe Postagem (Elemento Folha)
+
+```python
+class Postagem(ForumComponent):
+    """
+    Classe que representa uma postagem individual no fórum.
+    Atua como elemento folha na hierarquia Composite.
+    """
+    
+    def __init__(self, autor: str, conteudo: str):
+        self.autor = autor
+        self.conteudo = conteudo
+
+    def exibir(self):
+        """Exibe o conteúdo da postagem."""
+        print(f"📝 Postagem de {self.autor}: {self.conteudo}")
+```
+
+</center>
+<font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a>, 2025</p></font>
+</center>
+
+### Classe Topico (Elemento Composto)
+
+```python
+class Topico(ForumComponent):
+    """
+    Classe que representa um tópico de discussão no fórum.
+    Atua como elemento composto, podendo conter postagens e sub-tópicos.
+    """
+    
+    def __init__(self, titulo: str, descricao: str = ""):
+        self.titulo = titulo
+        self.descricao = descricao
+        self.componentes = []
+
+    def exibir(self, nivel: int = 0):
+        """
+        Exibe o tópico e todos seus componentes recursivamente.
+        O parâmetro nivel permite indentação hierárquica.
+        """
+        indentacao = "  " * nivel
+        print(f"{indentacao}📁 Tópico: {self.titulo}")
+        
+        if self.descricao:
+            print(f"{indentacao}   Descrição: {self.descricao}")
+        
+        for componente in self.componentes:
+            if isinstance(componente, Topico):
+                componente.exibir(nivel + 1)
+            else:
+                print("  " * (nivel + 1), end="")
+                componente.exibir()
+
+    def add(self, componente: ForumComponent):
+        """Adiciona um componente (postagem ou sub-tópico) ao tópico."""
+        self.componentes.append(componente)
+
+    def remove(self, componente: ForumComponent):
+        """Remove um componente do tópico."""
+        if componente in self.componentes:
+            self.componentes.remove(componente)
+
+    def get_child(self, index: int) -> ForumComponent:
+        """Obtém um componente filho pelo índice especificado."""
+        if 0 <= index < len(self.componentes):
+            return self.componentes[index]
+        raise IndexError("Índice fora do intervalo válido.")
+
+    def get_total_postagens(self) -> int:
+        """Calcula recursivamente o total de postagens no tópico."""
+        total = 0
+        for componente in self.componentes:
+            if isinstance(componente, Postagem):
+                total += 1
+            elif isinstance(componente, Topico):
+                total += componente.get_total_postagens()
+        return total
+```
+
+</center>
+<font size="3"><p style="text-align: center"><b>Fonte:</b> <a href="https://github.com/DiegoCarlito">Diego Carlito</a>, 2025</p></font>
+</center>
+
 ## Histórico de Versões
 
 | Versão | Data       | Alteração              | Responsável     | Revisor           | Data de revisão |
 |--------|------------|------------------------|------------------|-------------------|------------------|
 | `1.0`  | 01/06/2025 | Criação do documento com introdução, metodologia e modelagem | [Diego Carlito](https://github.com/DiegoCarlito) e [Filipe Carvalho](https://github.com/Filipe-002) |  |  |
+| `1.1`  | 01/06/2025 | Adição da implementação em Python | [Diego Carlito](https://github.com/DiegoCarlito) |  |  |
