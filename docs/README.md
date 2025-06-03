@@ -38,10 +38,10 @@ Quaisquer outras informações adicionais podem ser descritas nessa seção.
 
 | Versão | Data       | Alteração              | Responsável     | Revisores          | Data de revisão |
 |--------|------------|------------------------|------------------|-------------------|------------------|
-| `1.0`  | 18/05/2025 | Versão inicial do artefato  | [Diego Carlito](https://github.com/DiegoCarlito) |  |  |
+| `1.0`  | 18/05/2025 | Versão inicial do artefato  | [Diego Carlito](https://github.com/DiegoCarlito) |[Gustavo Alves](https://github.com/)  | 02/05/2025 |
 
 ## Controle de Revisão
 
 | Revisor(es)      | O que foi realizado                                      |
 |------------------|----------------------------------------------------------|
-|  |  |
+| [Gustavo Alves](https://github.com/) | Revisão da Home |
