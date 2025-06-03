@@ -7,6 +7,7 @@
     - [3.1. Padrões de Projeto GoFs Criacionais](/PadroesDeProjeto/3.1.GoFsCriacionais.md)
       - [3.1.1. Factory Method](/PadroesDeProjeto/3.1.1.FactoryMethod.md)
       - [3.1.2. Builder](/PadroesDeProjeto/3.1.2.Builder.md)
+      - [3.1.3. Singleton](/PadroesDeProjeto/3.1.3.Singleton.md)
     - [3.2. Padrões de Projeto GoFs Estruturais](/PadroesDeProjeto/3.2.GoFsEstruturais.md)
       - [3.2.1 Proxy](/PadroesDeProjeto/3.2.1.Proxy.md)
       - [3.2.2 Composite](/PadroesDeProjeto/3.2.2.Composite.md)
