@@ -13,6 +13,7 @@
       - [3.2.2 Composite](/PadroesDeProjeto/3.2.2.Composite.md)
       - [3.2.3 Decorator](/PadroesDeProjeto/3.2.3.Decorator.md)
       - [3.2.4 Facade](/PadroesDeProjeto/3.2.4.Facade.md)
+      - [3.2.5Adapter](/PadroesDeProjeto/3.2.5Adapter.md)
     - [3.3. Padrões de Projeto GoFs Comportamentais](/PadroesDeProjeto/3.3.GoFsComportamentais.md)
       - [3.3.1 Observer](/PadroesDeProjeto/3.3.1Observer.md)
       - [3.3.2 Command](/PadroesDeProjeto/3.3.2.Command.md)
